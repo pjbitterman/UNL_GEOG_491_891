@@ -1,0 +1,16 @@
+NON-COMMERCIAL USE LICENSE
+
+One of the primary goals of academic researchers is to advance the state-of-the-art in their fields of endeavor. This is done through sharing their results with  peers who will evaluate the merits of the works and build upon them in future research. Therefore, it is important for academic researchers who write original source code to be able to share their code. However, sometimes this source code can have commercial value. Revenue generated from licensing the code benefits the researcher and their lab as well as the university, which is able to reinvest that money into new research projects and resources.
+
+The Non-Commercial Use License addresses the former group who will use the source code for non-commercial purposes only.
+
+
+TERMS AND CONDITIONS
+
+Copyright 2021 Patrick Bitterman
+
+You may use, copy, modify, and distribute the contents of this repository ("course") for non-commercial purposes only. Non-commercial purposes include, but aren’t limited to, teaching and conducting research at educational and non-profit institutions, and personal non-profit use.
+
+Copies, modifications, and derivative works of this course will be subject to the same terms and conditions herein. The above copyright notice and disclaimer of warranty below must be included in any distributions of the course and its modified and derivative works, and a copy of this license must be provided to licensees.
+
+THE COURSE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE COURSE OR THE USE OR OTHER DEALINGS IN THE COURSE.
