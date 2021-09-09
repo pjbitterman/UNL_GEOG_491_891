@@ -21,9 +21,12 @@ d.stations %>% sf::st_crs()
 d.counties %>% sf::st_crs() == d.stations %>% sf::st_crs()
 
 
-del.counties <- d.stations %>% dplyr::filter(ST == "DE")
+del.counties <- d.counties %>% dplyr::filter(STATEFP10 == 10)
 
 
 de.stations <- sf::st_intersection(d.stations, del.counties)
 
 y <- sf::st_intersection(del.counties, d.stations)
+
+
+d.counties %>% group_by(STATEFP10)%>% dplyr::summarise(stateLandArea = sum(ALAND10))

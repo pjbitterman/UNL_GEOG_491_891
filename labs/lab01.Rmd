@@ -1,0 +1,235 @@
+---
+title: "Lab 01"
+#author: "Dr. Patrick Bitterman"
+#date: "`r format(Sys.time(), '%Y %B %d')`"
+output: 
+   pdf_document: 
+      template: my_template.tex
+      keep_tex: true
+my_subtitle: "GEOG 491/891"
+fancy: true
+geometry: margin=1in
+latex_engine: pdflatex
+colorlinks: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+# Lab 01: An introduction to attribute and spatial analysis in R
+
+### Read the instructions COMPLETELY before starting the lab
+
+This lab builds on many of the discussions and exercises from class. This lab also builds on Chapters 1-3 from your textbook, as well at R for Data Science by Hadley Wickham and Garrett Grolemund (https://r4ds.had.co.nz)
+
+### Formatting your submission
+
+This lab must be placed into a public repository on GitHub (www.github.com). Before the due date, submit **on Canvas** a link to the repository. I will then download your repositories and run your code. The code must be contained in either a .R script or a .Rmd markdown document. As I need to run your code, any data you use in the lab must be referenced using **relative path names**. Finally, answers to questions I pose in this document must also be in the repository at the time you submit your link to Canvas. They can be in a separte text file, or if you decide to use an RMarkdown document, you can answer them directly in the doc.
+
+## Exploratory data analysis
+
+This lab uses two files from the /data/CBW directory of this course's main repository:
+1. County_Boundaries.shp: A polygon file containing the boundaries for all counties in the Chesapeake Bay Watershed
+2. Non-Tidal_Water_Quality_Monitoring_Stations_in_the_Chesapeake_Bay.shp: point locations of non-tidal monitoring stations in the Chesapeake Bay Watershed
+
+
+### Step 1, load your packages and data
+```{r libraries to load, message=TRUE, echo=TRUE}
+library(tidyverse)
+library(ggplot2) #technically included in tidyverse
+library(sf)
+library(sp) #just in case
+```
+
+
+Next, load your data:
+```{r get my data, message=TRUE, echo=TRUE}
+
+## note the ".." as opposed to "." <- need to go back one additional level from where this file is
+p.counties <- "../data/CBW/County_Boundaries.shp"
+p.stations <- "../data/CBW/Non-Tidal_Water_Quality_Monitoring_Stations_in_the_Chesapeake_Bay.shp"
+
+
+d.counties <- sf::read_sf(p.counties)
+d.stations <- sf::read_sf(p.stations)
+
+glimpse(d.counties)
+glimpse(d.stations)
+
+```
+
+In class, we discussed how to use dplyr verbs such as *filter*, *select*, and *mutate*. There are some useful cheatsheets on the RStudio website to help with *dplyr*, *ggplot*, and other functions here: https://www.rstudio.com/resources/cheatsheets/
+
+Let's start with the *select* function, which SELECTS attributes that we specify:
+```{r selecting stuff, message=TRUE, echo=TRUE}
+d.counties %>% dplyr::select(GEOID10, ALAND10) %>% head() 
+# head truncates the data.frame to the first n rows
+
+```
+Note that because we're using a spatial data frame in the `sf` package, the geometry is preserved, even though we didn't specify it. We can also get rid of attributes we DON'T WANT (but not the geometry attribute) using a `-` flag. For example:
+
+```{r noname, message=TRUE, echo=FALSE}
+d.counties %>% dplyr::select(-NAME10) %>% head() 
+
+```
+
+
+We can also specify ranges that we want to keep (or not):
+
+```{r keeprange, echo=TRUE, message=TRUE}
+d.counties %>% dplyr::select(GEOID10:CLASSFP10) %>% head() 
+
+d.counties %>% dplyr::select(-(GEOID10:CLASSFP10)) %>% head() 
+
+d.counties %>% dplyr::select(starts_with("C"))
+```
+
+
+### Grouping data
+
+We can also "group" our data according to categorical data in our data.frames. This is useful if you want to create a function that works across the entire group. For example, we'll create a new attribute the calculates the land area of all counties in each state.
+```{r grpuex, echo=TRUE, message=TRUE}
+d.counties %>% group_by(STATEFP10) %>% mutate(stateLandArea = sum(ALAND10))
+```
+
+
+The above function is useful if you want to make calculations "in place" and use them in further row-by-row functions. However, we can further summarize our data such that we don't see all the extra data not relevant to our query. Note that sometimes buggy geometry can affect normal dplyr functions, so the code below converts the sf data frame to a tibble, then removes the geometry before performing the `group_by` and `summarise` functions.
+
+```{r groupSummarise, echo=TRUE, message=TRUE}
+d.counties %>% 
+  as_tibble() %>% dplyr::select(-geometry) %>% # this line converts the data because of wonky geometry
+  group_by(STATEFP10) %>% 
+  summarise(stateLandArea = sum(ALAND10))
+```
+...and we're left with a sum of all the land area in each state (by FIPS code)
+
+
+### A diversion into plots
+
+We can also use grouping functions in our visualization. For example:
+
+```{r plots, echo=TRUE, message=TRUE}
+d.counties %>% 
+  ggplot(., aes(x = as.factor(STATEFP10), y = ALAND10)) +
+  geom_boxplot(aes(fill = STATEFP10))
+```
+Or:
+
+```{r plots2, echo=TRUE, message=TRUE}
+d.counties %>% 
+  ggplot(., aes(x = ALAND10)) +
+  geom_histogram(aes(fill = STATEFP10)) +
+  labs(title = "not the most useful plot, but you get the idea")
+```
+
+
+### Spatial operations
+
+Since we have spatial data, we can peform some basic spatial operations with it. First, let's take a look at the coordinate reference system (CRS) for each file:
+
+```{r crs, echo=TRUE, message=TRUE}
+d.counties %>% sf::st_crs()
+d.stations %>% sf::st_crs()
+
+```
+
+They're the same, but we can formally check
+```{r crscomp, echo=TRUE, message=TRUE}
+d.counties %>% sf::st_crs() == d.stations %>% sf::st_crs()
+```
+
+We need to make sure the files have the same CRS before we do our spatial operations using the both of them. But to make the problem more tractable, let's first pare down our data such that we only have the counties in the state of Delaware:
+
+```{r mysubset, echo=TRUE, message=TRUE}
+del.counties <- d.counties %>% dplyr::filter(STATEFP10 == 10)
+```
+
+then, we can perform a *spatial intersection* to find all of the monitoring stations within our Delaware subset
+
+```{r intersect, echo=TRUE, message=TRUE}
+del.stations <- sf::st_intersection(d.stations, del.counties)
+```
+
+Plotting this small number of points will be ok, so let's look at the data first, then check the plot:
+```{r mypoints, echo=TRUE, message=TRUE}
+glimpse(del.stations)
+plot(del.stations)
+```
+There are only 2 points, and the plot isn't super helpful without any other sort of spatial reference, but you've succcessfully compelted your first spatial operation in R!
+
+
+`sf` has a number of other useful functions built-in that you can try. For example, a quick calculation of the area of each county in Delaware:
+```{r areacalc, echo=TRUE, message=TRUE}
+del.counties %>% st_area() 
+```
+
+Note that `sf` gives you the units of the calculation, but also that the data are in the form of a vector
+
+
+## Your tasks
+
+This lab requires you to put together many of the tasks demonstrated above, in class, help documentation (don't forget the `?` command!), and in your readings. I don't expect you'll know them all immediately, so you'll need to reference those resources, your classmates, and possibly web resources as well. This process is representative of real-world problem solving in this domain. There are a very large number of packages and functions available to you in R, and no one person knows how to use them all. So be inventive, be clever, and be persistent!
+
+Complete each task COMPLETELY USING R CODE. YOU MUST SHOW YOUR WORK FOR EACH ANSWER. Label your variables sensibly and use comments such that I can find your answers and your work.
+
+### Task 1: Basic data manipulation
+
+1.1 For each county, calculate its land area as percentage of the total area (land + water) for that state.
+
+1.2 For each state, find the county that has the largest proportion of its land as water (water area / total area)
+
+1.3 Count the number of counties in each state
+
+1.4 Which station has the shortest name (STATION_NA) in the study area?
+
+### Task 2: Plotting attribute data
+...for each plot, label your axes properly and give your plot a title
+
+2.1 Make a scatterplot showing the relationship between land area and water area for each county. Color each point using the state variable
+
+2.2 Make a histogram of drainage area (Drainage_A) for all monitoring stations
+
+2.3 Make a similar histogram, this time of drainage area (Drainage_A) for all monitoring stations. Color each point using the state variable
+
+### Task 3: Write a function
+3.1 Write a function that does the following:
+
+A. accepts a vector of arbitrary numbers, calculates the mean, median, maximum, and minimum of the vector
+
+B. Sorts the vector
+
+C. returns a list of those values from A and the sorted vector from B
+
+D. the function should only work with numeric values and print an error message if any other data type are found
+
+Test it with the following vectors
+
+`c(1, 0, -1), c(10, 100, 1000), c(.1, .001, 1e8), c("a", "b", "c")`
+
+### Task 4: (slightly) more complex spatial analysis. 
+...Note, you may need to find supplementary data to help you with these tasks
+
+4.1 Calculate the number of monitoring stations in each state
+
+4.2 Calculate the average size of counties in New York (that are also in this study area)
+
+4.3 Calculate which state has monitoring stations with the greatest average drainage area (Drainage_A)
+
+
+## Questions
+
+1. In using the intersection functions, are the following two statements equivalent? If not, explain how. Be sure to think about BOTH the spatial data structures AND the attribute data. Would your answer be different if we were using different types of data?
+
+```
+ sf::st_intersection(d.stations, del.counties)
+ sf::st_intersection(del.counties, d.stations)
+```
+
+
+2. What did you find challenging in this lab? What was new?
+
+
+3. What types of activities would you like to see in labs this semester?
