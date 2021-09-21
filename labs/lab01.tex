@@ -282,6 +282,59 @@ Next, load your data:
 ## $ geometry   <POINT [°]> POINT (-75.56186 38.72834), POINT (-75.67311 38.8497)~
 \end{verbatim}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# check for validity}
+\NormalTok{d.stations }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ sf}\SpecialCharTok{::}\FunctionTok{st\_is\_valid}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+##  [16] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+##  [31] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+##  [46] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+##  [61] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+##  [76] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+##  [91] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+## [106] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+## [121] TRUE TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d.counties }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ sf}\SpecialCharTok{::}\FunctionTok{st\_is\_valid}\NormalTok{() }\CommentTok{\# returns false for one feature, so we need to fix}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [37]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [49]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [61]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [73]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [85]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [97]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [109]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [121]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [133]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [145]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [157]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [169]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [181]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [193]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [205]  TRUE FALSE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# fix it "in place"}
+\NormalTok{d.counties }\OtherTok{\textless{}{-}}\NormalTok{ d.counties }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ sf}\SpecialCharTok{::}\FunctionTok{st\_make\_valid}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
 In class, we discussed how to use dplyr verbs such as \emph{filter},
 \emph{select}, and \emph{mutate}. There are some useful cheatsheets on
 the RStudio website to help with \emph{dplyr}, \emph{ggplot}, and other
@@ -292,7 +345,7 @@ that we specify:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{d.counties }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(GEOID10, ALAND10) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{head}\NormalTok{() }
+\NormalTok{d.counties }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(GEOID10, ALAND10) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{head}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -305,12 +358,12 @@ that we specify:
 ## # A tibble: 6 x 3
 ##   GEOID10   ALAND10                                                     geometry
 ##   <chr>       <dbl>                                           <MULTIPOLYGON [°]>
-## 1 51540      2.65e7 (((-78.47071 38.04872, -78.47033 38.04801, -78.47009 38.047~
-## 2 51510      3.89e7 (((-77.06247 38.79497, -77.06268 38.79504, -77.06273 38.795~
-## 3 51530      1.74e7 (((-79.36681 37.72723, -79.36687 37.72744, -79.36704 37.727~
-## 4 51600      1.62e7 (((-77.31427 38.86701, -77.31414 38.867, -77.31398 38.86699~
-## 5 42021      1.78e9 (((-79.03392 40.3165, -79.03359 40.31674, -79.0322 40.31733~
-## 6 42001      1.34e9 (((-77.46596 39.85977, -77.46596 39.85983, -77.46599 39.860~
+## 1 51540      2.65e7 (((-78.47082 38.04893, -78.47086 38.04893, -78.47096 38.048~
+## 2 51510      3.89e7 (((-77.06129 38.79457, -77.0612 38.79454, -77.06092 38.7944~
+## 3 51530      1.74e7 (((-79.36668 37.7267, -79.36655 37.72627, -79.36653 37.7261~
+## 4 51600      1.62e7 (((-77.31476 38.86701, -77.31534 38.86702, -77.31537 38.867~
+## 5 42021      1.78e9 (((-79.03546 40.31539, -79.03611 40.31477, -79.0363 40.3145~
+## 6 42001      1.34e9 (((-77.46594 39.85958, -77.46589 39.85924, -77.46586 39.859~
 \end{verbatim}
 
 \begin{Shaded}
@@ -323,6 +376,12 @@ Note that because we're using a spatial data frame in the \texttt{sf}
 package, the geometry is preserved, even though we didn't specify it. We
 can also get rid of attributes we DON'T WANT (but not the geometry
 attribute) using a \texttt{-} flag. For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d.counties }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{NAME10) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{verbatim}
 ## Simple feature collection with 6 features and 19 fields
@@ -362,12 +421,12 @@ We can also specify ranges that we want to keep (or not):
 ## # A tibble: 6 x 6
 ##   GEOID10 NAME10   NAMELSAD10  LSAD10 CLASSFP10                         geometry
 ##   <chr>   <chr>    <chr>       <chr>  <chr>                   <MULTIPOLYGON [°]>
-## 1 51540   Charlot~ Charlottes~ 25     C7        (((-78.47071 38.04872, -78.4703~
-## 2 51510   Alexand~ Alexandria~ 25     C7        (((-77.06247 38.79497, -77.0626~
-## 3 51530   Buena V~ Buena Vist~ 25     C7        (((-79.36681 37.72723, -79.3668~
-## 4 51600   Fairfax  Fairfax ci~ 25     C7        (((-77.31427 38.86701, -77.3141~
-## 5 42021   Cambria  Cambria Co~ 06     H1        (((-79.03392 40.3165, -79.03359~
-## 6 42001   Adams    Adams Coun~ 06     H1        (((-77.46596 39.85977, -77.4659~
+## 1 51540   Charlot~ Charlottes~ 25     C7        (((-78.47082 38.04893, -78.4708~
+## 2 51510   Alexand~ Alexandria~ 25     C7        (((-77.06129 38.79457, -77.0612~
+## 3 51530   Buena V~ Buena Vist~ 25     C7        (((-79.36668 37.7267, -79.36655~
+## 4 51600   Fairfax  Fairfax ci~ 25     C7        (((-77.31476 38.86701, -77.3153~
+## 5 42021   Cambria  Cambria Co~ 06     H1        (((-79.03546 40.31539, -79.0361~
+## 6 42001   Adams    Adams Coun~ 06     H1        (((-77.46594 39.85958, -77.4658~
 \end{verbatim}
 
 \begin{Shaded}
@@ -411,16 +470,16 @@ We can also specify ranges that we want to keep (or not):
 ## # A tibble: 207 x 6
 ##    COUNTYFP10 COUNTYNS10 CLASSFP10 CSAFP10 CBSAFP10                     geometry
 ##    <chr>      <chr>      <chr>     <chr>   <chr>              <MULTIPOLYGON [°]>
-##  1 540        01789068   C7        <NA>    16820    (((-78.47071 38.04872, -78.~
-##  2 510        01498415   C7        548     47900    (((-77.06247 38.79497, -77.~
-##  3 530        01498417   C7        <NA>    <NA>     (((-79.36681 37.72723, -79.~
-##  4 600        01789070   C7        548     47900    (((-77.31427 38.86701, -77.~
-##  5 021        01213662   H1        <NA>    27780    (((-79.03392 40.3165, -79.0~
-##  6 001        01213656   H1        564     23900    (((-77.46596 39.85977, -77.~
-##  7 061        01213672   H1        <NA>    26500    (((-78.15023 40.17464, -78.~
-##  8 035        01214721   H1        558     30820    (((-78.05358 41.27373, -78.~
-##  9 093        01213681   H1        <NA>    14100    (((-76.55874 40.93904, -76.~
-## 10 117        01209189   H1        <NA>    <NA>     (((-77.21965 41.99978, -77.~
+##  1 540        01789068   C7        <NA>    16820    (((-78.47082 38.04893, -78.~
+##  2 510        01498415   C7        548     47900    (((-77.06129 38.79457, -77.~
+##  3 530        01498417   C7        <NA>    <NA>     (((-79.36668 37.7267, -79.3~
+##  4 600        01789070   C7        548     47900    (((-77.31476 38.86701, -77.~
+##  5 021        01213662   H1        <NA>    27780    (((-79.03546 40.31539, -79.~
+##  6 001        01213656   H1        564     23900    (((-77.46594 39.85958, -77.~
+##  7 061        01213672   H1        <NA>    26500    (((-78.14963 40.1743, -78.1~
+##  8 035        01214721   H1        558     30820    (((-78.05375 41.27349, -78.~
+##  9 093        01213681   H1        <NA>    14100    (((-76.55799 40.93887, -76.~
+## 10 117        01209189   H1        <NA>    <NA>     (((-77.21985 41.99978, -77.~
 ## # ... with 197 more rows
 \end{verbatim}
 
@@ -471,7 +530,9 @@ further summarize our data such that we don't see all the extra data not
 relevant to our query. Note that sometimes buggy geometry can affect
 normal dplyr functions, so the code below converts the sf data frame to
 a tibble, then removes the geometry before performing the
-\texttt{group\_by} and \texttt{summarise} functions.
+\texttt{group\_by} and \texttt{summarise} functions. This is an
+unnecessary step when using validated geometry, but can also speed up
+computation.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -636,38 +697,38 @@ data first, then check the plot:
 \begin{verbatim}
 ## Rows: 2
 ## Columns: 32
-## $ OBJECTID   <int> 2, 4
-## $ MAP_ID     <int> 2, 4
-## $ USGS_STATI <int> 1488500, 1491500
-## $ STATION_NA <chr> "MARSHYHOPE CREEK NEAR ADAMSVILLE, DE", "TUCKAHOE CREEK NEA~
+## $ OBJECTID   <int> 2, 1
+## $ MAP_ID     <int> 2, 1
+## $ USGS_STATI <int> 1488500, 1487000
+## $ STATION_NA <chr> "MARSHYHOPE CREEK NEAR ADAMSVILLE, DE", "NANTICOKE RIVER NE~
 ## $ MAJOR_WATE <chr> "Eastern Shore", "Eastern Shore"
-## $ Drainage_A <dbl> 46.79998, 85.19996
-## $ START_DATE <int> 2005, 2005
+## $ Drainage_A <dbl> 46.79998, 75.39997
+## $ START_DATE <int> 2005, 1998
 ## $ END_DATE   <int> 2018, 2018
-## $ Lat        <dbl> 38.84969, 38.96681
-## $ Long       <dbl> -75.67311, -75.94306
-## $ STAID      <chr> "01488500", "01491500"
-## $ OBJECTID.1 <int> 120, 120
+## $ Lat        <dbl> 38.84969, 38.72833
+## $ Long       <dbl> -75.67311, -75.56186
+## $ STAID      <chr> "01488500", "01487000"
+## $ OBJECTID.1 <int> 120, 122
 ## $ STATEFP10  <chr> "10", "10"
-## $ COUNTYFP10 <chr> "001", "001"
-## $ COUNTYNS10 <chr> "00217271", "00217271"
-## $ GEOID10    <chr> "10001", "10001"
-## $ NAME10     <chr> "Kent", "Kent"
-## $ NAMELSAD10 <chr> "Kent County", "Kent County"
+## $ COUNTYFP10 <chr> "001", "005"
+## $ COUNTYNS10 <chr> "00217271", "00217269"
+## $ GEOID10    <chr> "10001", "10005"
+## $ NAME10     <chr> "Kent", "Sussex"
+## $ NAMELSAD10 <chr> "Kent County", "Sussex County"
 ## $ LSAD10     <chr> "06", "06"
 ## $ CLASSFP10  <chr> "H1", "H1"
 ## $ MTFCC10    <chr> "G4020", "G4020"
 ## $ CSAFP10    <chr> NA, NA
-## $ CBSAFP10   <chr> "20100", "20100"
+## $ CBSAFP10   <chr> "20100", "42580"
 ## $ METDIVFP10 <chr> NA, NA
 ## $ FUNCSTAT10 <chr> "A", "A"
-## $ ALAND10    <dbl> 1518196116, 1518196116
-## $ AWATER10   <dbl> 549470508, 549470508
-## $ INTPTLAT10 <chr> "+39.0970884", "+39.0970884"
-## $ INTPTLON10 <chr> "-075.5029819", "-075.5029819"
-## $ Shape_Leng <dbl> 269441.5, 269441.5
-## $ Shape_Area <dbl> 3437654275, 3437654275
-## $ geometry   <POINT [°]> POINT (-75.56186 38.72834), POINT (-75.67311 38.8497)
+## $ ALAND10    <dbl> 1518196116, 2424432871
+## $ AWATER10   <dbl> 549470508, 674204700
+## $ INTPTLAT10 <chr> "+39.0970884", "+38.6775108"
+## $ INTPTLON10 <chr> "-075.5029819", "-075.3354950"
+## $ Shape_Leng <dbl> 269441.5, 302135.9
+## $ Shape_Area <dbl> 3437654275, 5092675716
+## $ geometry   <POINT [°]> POINT (-75.67311 38.8497), POINT (-75.56186 38.72834)
 \end{verbatim}
 
 \begin{Shaded}
@@ -698,7 +759,7 @@ Delaware:
 
 \begin{verbatim}
 ## Units: [m^2]
-## [1] 2065913935 3096294979 1278231425
+## [1] 2065913885 3096294967 1278231146
 \end{verbatim}
 
 Note that \texttt{sf} gives you the units of the calculation, but also
@@ -748,8 +809,9 @@ water area for each county. Color each point using the state variable
 2.2 Make a histogram of drainage area (Drainage\_A) for all monitoring
 stations
 
-2.3 Make a similar histogram, this time of drainage area (Drainage\_A)
-for all monitoring stations. Color each point using the state variable
+2.3 Make a similar histogram of drainage area (Drainage\_A) for all
+monitoring stations. This time, color each point using the state
+variable
 
 \hypertarget{task-3-write-a-function}{%
 \subsubsection{Task 3: Write a function}\label{task-3-write-a-function}}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.17)  9 SEP 2021 16:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.17)  21 SEP 2021 10:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -545,49 +545,49 @@ LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line
 260.
 (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [2] [3] [4] [5]
-<lab01_files/figure-latex/plots-1.pdf, id=98, 469.755pt x 325.215pt>
+) [2] [3] [4] [5] [6]
+<lab01_files/figure-latex/plots-1.pdf, id=103, 469.755pt x 325.215pt>
 File: lab01_files/figure-latex/plots-1.pdf Graphic file (type pdf)
 <use lab01_files/figure-latex/plots-1.pdf>
 Package pdftex.def Info: lab01_files/figure-latex/plots-1.pdf  used on input li
-ne 514.
+ne 575.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 514--515
+Underfull \hbox (badness 10000) in paragraph at lines 575--576
 [][]
  []
 
-[6 <./lab01_files/figure-latex/plots-1.pdf>]
-<lab01_files/figure-latex/plots2-1.pdf, id=109, 469.755pt x 325.215pt>
+<lab01_files/figure-latex/plots2-1.pdf, id=104, 469.755pt x 325.215pt>
 File: lab01_files/figure-latex/plots2-1.pdf Graphic file (type pdf)
 <use lab01_files/figure-latex/plots2-1.pdf>
 Package pdftex.def Info: lab01_files/figure-latex/plots2-1.pdf  used on input l
-ine 529.
+ine 590.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[7 <./lab01_files/figure-latex/plots2-1.pdf>] [8]
-<lab01_files/figure-latex/mypoints-1.pdf, id=125, 469.755pt x 325.215pt>
+[7 <./lab01_files/figure-latex/plots-1.pdf>] [8 <./lab01_files/figure-latex/plo
+ts2-1.pdf>] [9]
+<lab01_files/figure-latex/mypoints-1.pdf, id=129, 469.755pt x 325.215pt>
 File: lab01_files/figure-latex/mypoints-1.pdf Graphic file (type pdf)
 <use lab01_files/figure-latex/mypoints-1.pdf>
 Package pdftex.def Info: lab01_files/figure-latex/mypoints-1.pdf  used on input
- line 684.
+ line 745.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 684--688
+Underfull \hbox (badness 10000) in paragraph at lines 745--749
 [][]
  []
 
-[9] [10 <./lab01_files/figure-latex/mypoints-1.pdf>] [11] [12] (./lab01.aux)
+[10] [11 <./lab01_files/figure-latex/mypoints-1.pdf>] [12] [13] (./lab01.aux)
 Package rerunfilecheck Info: File `lab01.out' has not changed.
 (rerunfilecheck)             Checksum: 52CA2A35E4296766B792FE93C8A4925A;2970.
  ) 
 Here is how much of TeX's memory you used:
- 10507 strings out of 481250
- 155719 string characters out of 5914459
+ 10508 strings out of 481250
+ 155726 string characters out of 5914459
  463058 words of memory out of 5000000
  27214 multiletter control sequences out of 15000+600000
  439508 words of font info for 55 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 71i,12n,74p,425b,473s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,12n,74p,425b,471s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}
 {/Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</U
 sers/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></
@@ -597,10 +597,10 @@ Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><
 ></Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pf
 b></Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.
 pfb>
-Output written on lab01.pdf (12 pages, 200272 bytes).
+Output written on lab01.pdf (13 pages, 202112 bytes).
 PDF statistics:
- 194 PDF objects out of 1000 (max. 8388607)
- 166 compressed objects within 2 object streams
- 44 named destinations out of 1000 (max. 500000)
+ 199 PDF objects out of 1000 (max. 8388607)
+ 170 compressed objects within 2 object streams
+ 45 named destinations out of 1000 (max. 500000)
  128 words of extra memory for PDF output out of 10000 (max. 10000000)
 

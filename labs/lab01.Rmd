@@ -59,20 +59,27 @@ d.stations <- sf::read_sf(p.stations)
 glimpse(d.counties)
 glimpse(d.stations)
 
+# check for validity
+d.stations %>% sf::st_is_valid()
+d.counties %>% sf::st_is_valid() # returns false for one feature, so we need to fix
+
+# fix it "in place"
+d.counties <- d.counties %>% sf::st_make_valid()
+
 ```
 
 In class, we discussed how to use dplyr verbs such as *filter*, *select*, and *mutate*. There are some useful cheatsheets on the RStudio website to help with *dplyr*, *ggplot*, and other functions here: https://www.rstudio.com/resources/cheatsheets/
 
 Let's start with the *select* function, which SELECTS attributes that we specify:
 ```{r selecting stuff, message=TRUE, echo=TRUE}
-d.counties %>% dplyr::select(GEOID10, ALAND10) %>% head() 
+d.counties %>% dplyr::select(GEOID10, ALAND10) %>% head()
 # head truncates the data.frame to the first n rows
 
 ```
 Note that because we're using a spatial data frame in the `sf` package, the geometry is preserved, even though we didn't specify it. We can also get rid of attributes we DON'T WANT (but not the geometry attribute) using a `-` flag. For example:
 
-```{r noname, message=TRUE, echo=FALSE}
-d.counties %>% dplyr::select(-NAME10) %>% head() 
+```{r noname, message=TRUE, echo=TRUE}
+d.counties %>% dplyr::select(-NAME10) %>% head()
 
 ```
 
@@ -96,7 +103,7 @@ d.counties %>% group_by(STATEFP10) %>% mutate(stateLandArea = sum(ALAND10))
 ```
 
 
-The above function is useful if you want to make calculations "in place" and use them in further row-by-row functions. However, we can further summarize our data such that we don't see all the extra data not relevant to our query. Note that sometimes buggy geometry can affect normal dplyr functions, so the code below converts the sf data frame to a tibble, then removes the geometry before performing the `group_by` and `summarise` functions.
+The above function is useful if you want to make calculations "in place" and use them in further row-by-row functions. However, we can further summarize our data such that we don't see all the extra data not relevant to our query. Note that sometimes buggy geometry can affect normal dplyr functions, so the code below converts the sf data frame to a tibble, then removes the geometry before performing the `group_by` and `summarise` functions. This is an unnecessary step when using validated geometry, but can also speed up computation.
 
 ```{r groupSummarise, echo=TRUE, message=TRUE}
 d.counties %>% 
@@ -133,7 +140,6 @@ Since we have spatial data, we can peform some basic spatial operations with it.
 ```{r crs, echo=TRUE, message=TRUE}
 d.counties %>% sf::st_crs()
 d.stations %>% sf::st_crs()
-
 ```
 
 They're the same, but we can formally check
@@ -192,7 +198,7 @@ Complete each task COMPLETELY USING R CODE. YOU MUST SHOW YOUR WORK FOR EACH ANS
 
 2.2 Make a histogram of drainage area (Drainage_A) for all monitoring stations
 
-2.3 Make a similar histogram, this time of drainage area (Drainage_A) for all monitoring stations. Color each point using the state variable
+2.3 Make a similar histogram of drainage area (Drainage_A) for all monitoring stations. This time, color each point using the state variable
 
 ### Task 3: Write a function
 3.1 Write a function that does the following:
