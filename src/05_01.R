@@ -45,5 +45,39 @@ tm_shape(lc_303ds) + tm_lines(col = "Waterbody_") +
 
 theanswer <- parks %>% st_intersection(., buffs)
 
-tm_shape(lc_303ds) + tm_lines(col = "Waterbody_") + 
+tm_shape(lc) + tm_polygons() + 
+  tm_shape(lc_303ds) + tm_lines(col = "Waterbody_") + 
   tm_shape(lc_parks) + tm_dots(col = "AreaName", size = 1)
+
+
+tm_shape(lc) + tm_polygons() + 
+  tm_shape(streams[lc,]) + tm_lines(col = "Waterbody_") + 
+  tm_shape(lc_parks) + tm_dots(col = "AreaName", size = 1)
+
+
+
+# 5.02
+
+parks_p <- sf::st_transform(parks, 26914)
+counties_p <- sf::st_transform(counties, 26914)
+
+
+poly.areas(counties_p %>% as_Spatial())
+
+counties %>% sf::st_area()
+
+poly.counts(as_Spatial(parks), as_Spatial(counties))
+
+
+# distance
+lc_303ds_p <- sf::st_transform(lc_303ds, 26914)
+lc_parks_p <- sf::st_transform(lc_parks, 26914)
+
+
+x <- sf::st_distance(lc_303ds_p, lc_parks_p)
+y <- sf::st_distance(lc_303ds, lc_parks)
+
+(x - y) %>% c() %>% mean()
+
+(x - y) %>% c() %>% hist()
+
