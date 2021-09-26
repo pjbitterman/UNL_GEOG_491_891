@@ -1,0 +1,235 @@
+---
+title: "Lab 02"
+#author: "Dr. Patrick Bitterman"
+#date: "`r format(Sys.time(), '%Y %B %d')`"
+output: 
+   pdf_document: 
+      template: my_template.tex
+      keep_tex: true
+my_subtitle: "GEOG 491/891"
+fancy: true
+geometry: margin=1in
+latex_engine: pdflatex
+colorlinks: true
+---
+
+
+
+
+# Lab 02: R as a GIS
+
+### Read the instructions COMPLETELY before starting the lab
+
+This lab builds on many of the discussions and exercises from class, including previous labs.
+
+### Formatting your submission
+
+This lab must be placed into a public repository on GitHub (www.github.com). Before the due date, submit **on Canvas** a link to the repository. I will then download your repositories and run your code. The code must be contained in either a .R script or a .Rmd markdown document. As I need to run your code, any data you use in the lab must be referenced using **relative path names**. Finally, answers to questions I pose in this document must also be in the repository at the time you submit your link to Canvas. They can be in a separate text file, or if you decide to use an RMarkdown document, you can answer them directly in the doc.
+
+## Data
+
+The data for this lab can be found in the ```./data/CBW/``` directory within the course GitHub repository. 
+
+Spatial datasets:
+
+1. Streams_Opened_by_Dam_Removal_2012_2017.shp
+
+2. Dam_or_Other_Blockage_Removed_2012_2017.shp
+
+3. County_Boundaries.shp
+
+Non-spatial datasets
+
+1. BMPreport2016_landbmps.csv
+
+
+## Working with tabular data
+
+```{r setup, echo=TRUE, message=TRUE}
+# setup
+library(tidyverse)
+library(sf)
+library(tmap)
+```
+
+
+A "join" is a method to join multiple tables together using a matching "key" found in both datasets. For example:
+
+```{r show a join, echo=TRUE, message=TRUE}
+
+# table of names
+t.names <- tibble(key = c(1, 2, 3), 
+             name = c("Huey", "Dewey", "Louis"))
+
+# table of scores
+t.scores <- tibble(name = c("Louis", "Huey", "Dewey"),
+                   grade = c(99, 45, 33))
+
+# combined them
+t.joined <- left_join(t.names, t.scores, by = "name")
+t.joined
+```
+
+A "left join" finds starts with the table on the "left" and then finds matches in the table on the "right". See the documentation using ```?left_join``` for more details and for other types of joins. Sometimes the attributes you're using to join the tables won't have the same name, in which case the syntax is different:
+
+```{r diff syntax, echo=TRUE, message=TRUE}
+
+t.wonkyNames <- tibble(nombre = c("Dewey", "Louis", "Huey"),
+                       x = rep(999),
+                       favoriteFood = c("banana", "apple", "carrot"))
+
+t.joined2 <- left_join(t.names, t.wonkyNames, by = c("name" = "nombre"))
+t.joined2
+```
+
+## Let's take a look at some tabular data
+
+This dataset includes a list of best management practices ("BMPs") to reduce nutrient and sediment pollution in the Chesapeake Bay Watershed.
+
+```{r tabularData, echo=TRUE, message=TRUE}
+
+bmps <- read_csv("../data/CBW/BMPreport2016_landbmps.csv")
+
+glimpse(bmps)
+
+```
+
+Look at the attribute "GeographyName" - it's a character attribute that contains the counties' FIPS code, but also some ancillary explanatory data we need to get rid of. There are multiple ways of doing so, including some (very) fancy automated methods that detect patterns of numbers and characters. We're going to take a simpler approach and assume that all FIPS codes are only 5 characters long.
+
+```{r trim a string, echo=TRUE, message=TRUE}
+
+# edit the bmps variable in place, which isn't always best practices
+bmps <- bmps %>% mutate(., FIPS.trimmed = stringr::str_sub(GeographyName, 1, 5))
+```
+
+This can be sueful when you're trying to create "keys" by which to join tables or just clean your tables in general
+
+Let's recall how to do some simple tasks
+
+```{r review, echo=TRUE, message=TRUE}
+
+# Let's calculate the total cost by BMP and then plot it
+bmps %>% group_by(BMPType) %>% summarise(totalCost = sum(Cost)) %>%
+  ggplot(., aes(x = BMPType, y = totalCost)) +
+  geom_bar(stat = "identity") +
+  theme_minimal()
+
+# Doesn't really work. This is because there are missing data in the cost attribute. Let's look at it (and this is why we do exploratory data analysis first)
+
+summary(bmps$Cost)
+
+# Yup, lots of "NA's"... We can drop them in our analysis. Look carefully at the code in the 'sum' function
+
+
+bmps %>% group_by(BMPType) %>% summarise(totalCost = sum(Cost, na.rm = T)) %>%
+  ggplot(., aes(x = BMPType, y = totalCost)) +
+  geom_bar(stat = "identity") +
+  theme_minimal()
+
+```
+
+We can also group by multiple variables at the same time. For example:
+
+```{r review2, echo=TRUE, message=TRUE}
+# group by state and sector, sum total cost
+twofactors <- bmps %>% group_by(StateAbbreviation, Sector) %>% summarise(totalCost = sum(Cost))
+
+```
+
+For our last bit of review, let's make a few box plots:
+
+```{r review3, echo=TRUE, message=TRUE}
+
+# A simple one
+bmps %>% ggplot(., aes(x = StateAbbreviation, y = AmountCredited)) +
+  geom_boxplot(aes(fill = StateAbbreviation))
+
+# Very heavily skewed, so just for the sake of visualization, let's subset the data (dramatically)
+bmps %>% 
+  dplyr::filter(., AmountCredited > 1 & AmountCredited < 100) %>% 
+  ggplot(., aes(x = StateAbbreviation, y = AmountCredited)) +
+  geom_boxplot(aes(fill = StateAbbreviation))
+
+# We can also plot multiple dimensions in our plot using the `facet` family of commands in ggplot
+
+bmps %>% 
+  dplyr::filter(., AmountCredited > 1 & AmountCredited < 100) %>% 
+  ggplot(., aes(x = StateAbbreviation, y = AmountCredited)) +
+  geom_boxplot(aes(fill = StateAbbreviation)) +
+  facet_grid(Sector~.)
+
+```
+
+The last new item uses the ```%in%``` command. It's a way to quickly figure out which elements are inside of another. In that sense, it's similar to a spatial intersection, but for other types of data.
+
+```{r using in, echo=TRUE, message=TRUE}
+
+x <- c(1, 2, 3, 4, 5)
+
+# is 7 in our vector?
+7 %in% x # should be False
+
+2 %in% x # should be True
+
+# can also do it with vectors
+c(4, 99, 1) %in% x
+```
+
+
+Lastly, let's recall using tmap on our data. Also remember you can use ```sf::st_make_valid``` to fix offending geometry
+
+```{r remembering tmap, echo=TRUE, message=TRUE}
+
+counties <- sf::read_sf("../data/CBW/County_Boundaries.shp")
+counties %>% sf::st_is_valid()
+counties <- counties %>% sf::st_make_valid()
+
+# quick map of the data
+tm_shape(counties) + tm_polygons(col = "ALAND10")
+```
+
+\newpage
+
+## Your tasks
+
+Using the following data...
+
+```{r tasksetup, echo=TRUE, message=TRUE}
+
+# spatial
+counties <- sf::read_sf("../data/CBW/County_Boundaries.shp") %>% sf::st_make_valid()
+dams <- sf::read_sf("../data/CBW/Dam_or_Other_Blockage_Removed_2012_2017.shp") %>% sf::st_make_valid()
+streams <- sf::read_sf("../data/CBW/Streams_Opened_by_Dam_Removal_2012_2017.shp") %>% sf::st_make_valid()
+
+# aspatial
+bmps <- read_csv("../data/CBW/BMPreport2016_landbmps.csv")
+```
+
+...complete the following tasks.
+
+Complete each task COMPLETELY USING R CODE. YOU MUST SHOW YOUR WORK FOR EACH ANSWER. Label your variables sensibly and use comments such that I can find your answers and your work. The following tasks draw upon lecture, your assigned readings, and the examples shown above. As always, there are multiple ways of completing each task. Remember, it's always a good idea to peform some exploratory data analysis on your own prior to starting work.
+
+### Task 1: Aspatial operations
+
+1.1 Calculate summary statistics for the Cost of BMPs for each State (including DC)
+
+1.2 Make a scatterplot of Cost vs. TotalAmountCredited, ONLY FOR Units of type "Acres". You may need to apply a data transformation to one or more axes if the data are heavily skewed.
+
+1.3 Make a boxplot with "StateAbbreviation" on the x-axis and "TotalAmountCredited" on the y-axis. HOWEVER, the only data I want plotted are for cover crop BMPs. Note, there are many types of cover crops in this dataset, and I want you to include them ALL. There are handy functions within the ```stringr``` package that can help you here.
+
+1.4 make a scatterplot of the dam dataset, this time with "YEAR" on the x-axis and "STATE" on y-axis (think of it like a timeline). Assume no dams were built in year 0, so you'll need to remove those data points.
+
+1.5 make one last (aspatial) visualization. But this time, it's your choice what data and plots to use. The only requirement is that you link two of the datasets together in some manner. Be creative. Make it look nice (e.g., use proper labels, interesting colors/shading/size).
+
+
+### Task 2: Spatial operations
+
+2.1 Find the 5 longest streams in the 'streams opened by dam removal' dataset
+
+2.2 Find the three counties with the greatest TOTAL length of streams (opened by dam removal) in them
+
+2.3 Make a map of the counties, shading each county by the total cost of BMPs funded/implemented in that county. This will required you to join multiple datasets together
+
+2.4 For each removed dam, find the closest stream segment
+
+2.5 Calculate how many removed dams are (or were) in each state
