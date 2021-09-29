@@ -3,7 +3,6 @@ library(tidyverse)
 library(GISTools)
 library(sf)
 library(tmap)
-library(gstat)
 
 #cumulative rainfall for 2008
 precip <- sf::read_sf("./data/Precip2008Readings.shp")
