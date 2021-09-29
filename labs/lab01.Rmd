@@ -198,7 +198,7 @@ Complete each task COMPLETELY USING R CODE. YOU MUST SHOW YOUR WORK FOR EACH ANS
 
 2.2 Make a histogram of drainage area (Drainage_A) for all monitoring stations
 
-2.3 Make a similar histogram of drainage area (Drainage_A) for all monitoring stations. This time, color each point using the state variable
+2.3 Make a similar histogram of drainage area (Drainage_A) for all monitoring stations. This time, shade/color each portion of the histogram's bar(s) using the state variable
 
 ### Task 3: Write a function
 3.1 Write a function that does the following:

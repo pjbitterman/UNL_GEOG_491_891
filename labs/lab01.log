@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.17)  21 SEP 2021 10:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.17)  28 SEP 2021 11:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -597,7 +597,7 @@ Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><
 ></Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pf
 b></Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.
 pfb>
-Output written on lab01.pdf (13 pages, 202112 bytes).
+Output written on lab01.pdf (13 pages, 202159 bytes).
 PDF statistics:
  199 PDF objects out of 1000 (max. 8388607)
  170 compressed objects within 2 object streams
