@@ -62,12 +62,15 @@ streams %>% st_intersects(pa.counties, ., sparse = T)
 streams %>% st_intersects(., pa.counties, sparse = T)
 streams %>% st_within(., pa.counties)
 
-c.tioga <- counties %>% filter(NAME10 == "Tioga")
+c.tioga <- pa.counties %>% filter(NAME10 == "Tioga")
 streams.tioga <- streams[c.tioga,]
 
 
-streams.tioga %>% st_touches(., c.tioga)
-streams.tioga %>% st_is_within_distance(., c.tioga, 1)
+streams.tioga %>% st_covered_by(., c.tioga)
+tm_shape(c.tioga) + tm_polygons() + tm_shape(streams.tioga) + tm_lines(col = "blue")
+
+
+streams.tioga %>% st_is_within_distance(., dams, 1)
 
 tm_shape(counties) + tm_polygons(col = "STATEFP10") + tm_shape(streams) + tm_lines()
 
@@ -75,4 +78,9 @@ tm_shape(counties) + tm_polygons(col = "STATEFP10") + tm_shape(streams) + tm_lin
 
 # spatial join
 
-st_join(pa.counties, dams)
+st_join(pa.counties, dams, join = st_intersects)
+
+st_join(pa.counties, dams, join = st_disjoint)
+
+
+st_join(pa.counties, dams, join = st_is_within_distance)
