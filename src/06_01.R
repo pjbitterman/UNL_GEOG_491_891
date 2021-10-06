@@ -83,4 +83,4 @@ st_join(pa.counties, dams, join = st_intersects)
 st_join(pa.counties, dams, join = st_disjoint)
 
 
-st_join(pa.counties, dams, join = st_is_within_distance)
+st_join(pa.counties, streams, join = st_touches)
