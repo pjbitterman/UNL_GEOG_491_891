@@ -1,0 +1,274 @@
+---
+title: "Lab 03"
+#author: "Dr. Patrick Bitterman"
+#date: "`r format(Sys.time(), '%Y %B %d')`"
+output: 
+   pdf_document: 
+      template: my_template.tex
+      keep_tex: true
+my_subtitle: "GEOG 491/891"
+fancy: true
+geometry: margin=1in
+latex_engine: pdflatex
+colorlinks: true
+---
+
+# Lab 03: Spatial autocorrelation, globally and locally
+
+### Read the instructions COMPLETELY before starting the lab
+
+This lab builds on many of the discussions and exercises from class, including previous labs.
+
+### Attribution
+
+This lab uses some code examples and directions from https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html
+
+### Formatting your submission
+
+This lab must be placed into a public repository on GitHub (www.github.com). Before the due date, submit **on Canvas** a link to the repository. I will then download your repositories and run your code. The code must be contained in either a .R script or a .Rmd markdown document. As I need to run your code, any data you use in the lab must be referenced using **relative path names**. Finally, answers to questions I pose in this document must also be in the repository at the time you submit your link to Canvas. They can be in a separate text file, or if you decide to use an RMarkdown document, you can answer them directly in the doc.
+
+## Data
+
+The data for this lab can be found on the US Census website. 
+
+1. First, go here: https://www.census.gov/geographies/mapping-files/2010/geo/tiger-data.html
+
+2. Second, scroll to the "Demographic Profile 1 - ShapeFile Format" section
+
+3. Click on "Counties" to download the county data for all of the US (the direct link is also here: http://www2.census.gov/geo/tiger/TIGER2010DP1/County_2010Census_DP1.zip)
+
+
+## Introduction
+
+In this lab, we will be calculating the spatial autocorrelation of various Census variables across a subset of the US. Please note, the dataset you downloaded above is larger than the current 100MB limit GitHub imposes on single files. This means you'll be unable to push that dataset to GitHub. Accordingly, I *strongly* suggest you subset the data such that your files are under this limit. This will be vital when I grade your submissions. If you're not certain how to save a subset of the file to disk, look at ```?sf::write_sf``` for help. We will also be using a new package called ```spdep``` in this assignment.
+
+
+We begin by loading the relevant packages and data
+
+```{r packages, echo=TRUE, message = TRUE}
+library(spdep)
+library(sf)
+library(tidyverse)
+library(tmap)
+```
+
+
+Next, we load our data, look at it, then maybe plot it (the plot might take some time)
+
+```{r data, echo=TRUE, message = TRUE}
+d.all <- sf::read_sf("../data/County_2010Census_DP1.shp")
+glimpse(d.all)
+
+#tmap::tm_shape(d.all) + tm_polygons() # commented out because 
+#it's a large dataset that takes a long time to plot
+
+```
+
+
+Again, the data are too large, so we need to creat a subset we can work with later. Let's use the GEOID10 to create a dataset with only those counties in Nebraska. Be sure to check the data type of GEOID.
+
+```{r make_subset, echo=TRUE, message = TRUE}
+
+# get just nebraska
+neb <- d.all %>% dplyr::filter(stringr::str_starts(GEOID10, "31"))
+
+# map it to verify
+tmap::tm_shape(neb) + tm_polygons()
+
+```
+
+Next, we'll formalize our space by creating neighbors, and thus, **W**
+
+- First we'll project
+- Next, we'll use Queen contiguity to define **W**
+
+```{r make some neighbors, echo=TRUE, message = TRUE}
+
+# Check it first
+sf::st_crs(neb) 
+
+# then reproject to north american equidistant conic
+neb.projected <- neb %>% sf::st_transform(., "ESRI:102010")
+
+# plot it again to make sure nothing broke
+tmap::tm_shape(neb.projected) + tm_polygons()
+
+# make the neighborhood
+nb <- spdep::poly2nb(neb.projected, queen = TRUE)
+
+```
+
+For each polygon in our polygon object, ```nb``` lists all neighboring polygons. For example, to see the neighbors for the first polygon in the object, type:
+
+```{r checktheneighbors, echo = TRUE, message = TRUE}
+nb[[1]]
+```
+
+Polygon 1 has 4 neighbors. The numbers represent the polygon IDs as stored in the spatial object ```neb.projected```. Polygon 1 is associated with the County attribute name `"Burt County"` and its four neighboring polygons are associated with the counties:
+
+```{r check names, echo = TRUE, message = TRUE}
+neb.projected$NAMELSAD10[1] # county in index 1
+
+nb[[1]] %>% neb.projected$NAMELSAD10[.] # and it's neighbors. 
+# Note we're doing this programmatically step-by-step
+```
+
+Next, we need to assign weights to each neighboring polygon. In our case, each neighboring polygon will be assigned equal weight `(style="W")`. This is accomplished by assigning the fraction: `1 / ( # of neighbors)`  to each neighboring county then summing the weighted  values. While this is the most intuitive way to summaries the neighbors’ values it has one drawback in that polygons along the edges of the study area will base their lagged values on fewer polygons thus potentially over- or under-estimating the true nature of the spatial autocorrelation in the data. For this example, we’ll stick with the `style="W"` option for simplicity’s sake but note that other more robust options are available, notably `style="B"`.
+
+
+```{r make weights, echo = TRUE, message = TRUE}
+lw <- nb2listw(nb, style="W", zero.policy=TRUE)
+```
+
+The ```zero.policy=TRUE``` option allows for lists of non-neighbors. This should be used with caution since the user may not be aware of missing neighbors in their dataset. However, a zero.policy of `FALSE` would return an error if you have a dataset where a polygon does not have a neighbor.
+
+To see the weight of the first polygon’s four neighbors type:
+
+```{r checkit, echo = TRUE, message = TRUE}
+lw$weights[1]
+```
+
+This row-normalized our weights!
+
+We can also plot the distribution of neighbors across the dataset. 
+
+```{r plotneighbors, echo = TRUE, message = TRUE}
+# use attr to get the count of neighbors in W
+neighbors <- attr(lw$weights,"comp")$d 
+
+# plot it
+hist(neighbors)
+
+```
+
+
+Finally, we’ll compute the average neighbor population of Females > 65 years of age for each polygon. These values are often referred to as spatially lagged values. The following table shows the average neighboring F >65 values (stored in the F65.lag object) for each county.
+
+
+```{r laggedVar, echo = TRUE, message = TRUE}
+F65.lag <- lag.listw(lw, neb.projected$DP0070003)
+F65.lag
+```
+
+### Computing Moran's I
+
+
+To get the Moran’s I value, simply use the moran.test function.
+
+```{r morantest, echo = TRUE, message = TRUE}
+moran.test(neb.projected$DP0070003, lw)
+```
+
+Note that the p-value computed from the `moran.test` function is not computed from an MC simulation but **analytically** instead. This may not always prove to be the most accurate measure of significance. To test for significance using the MC simulation method instead, use the moran.mc function.
+
+
+```{r moranmc, echo = TRUE, message = TRUE}
+MC<- moran.mc(neb.projected$DP0070003, lw, nsim=999)
+
+# View results (including p-value)
+MC
+
+# Plot the distribution
+
+# Plot the distribution (note that this is a density plot instead of a histogram)
+plot(MC, main="", las=1)
+```
+
+What is being plotted in this density plot?
+
+### Defining **W** using a distance band
+
+Next, we will explore spatial autocorrelation as a function of distance bands.
+
+Instead of defining neighbors as contiguous polygons, we will define neighbors based on distances to **polygon centers**. We therefore need to extract the center of each polygon. The object `coords` stores all  pairs of coordinate values corresponding to polygon centroids. Note, we need to convert from an `sf` object to a `spatial` one for the `coordinates()` function to work.
+
+```{r make_coords, echo = TRUE, message = TRUE}
+coords <- neb.projected %>% as_Spatial() %>% coordinates()
+```
+
+Next, we will define the search radius to include all neighboring polygon centers within 50 km (or 50,000 meters)
+```{r calcdistbandneghbords, echo = TRUE, message = TRUE}
+s.dist  <-  dnearneigh(coords, 0, 50000)
+```
+
+The dnearneigh function takes on three parameters: 
+
+1. the coordinate values `coords`
+
+2. the radius for the inner radius of the annulus band
+
+3. and the radius for the outer annulus band. 
+
+In our example, the inner annulus radius is 0 which implies that all polygon centers up to 50km are considered neighbors.
+
+**Note that if we chose to restrict the neighbors to all polygon centers between 50 km and 100 km, for example, then we would define a search annulus (instead of a circle) as `dnearneigh(coords, 50000, 100000)`**
+
+Now that we defined our search circle, we need to identify all neighboring polygons for each polygon in the dataset.
+
+
+```{r calcnb, echo = TRUE, message = TRUE}
+lw <- nb2listw(s.dist, style="W",zero.policy=T) 
+
+#Run the MC simulation.
+MI  <-  moran.mc(neb.projected$DP0070003, lw, nsim=999, zero.policy=T) 
+
+#Plot the results.
+plot(MI, main="", las=1) 
+
+#Display p-value and other summary statistics.
+MI
+
+```
+
+### Moran's plots
+
+Thus far, our analysis has been a global investigation of spatial autocorrelation. We can also use local indicators of spatial autocorrelation (LISA) to analyze our dataset. One way of doing so is through the use of a Moran plot.
+
+The process to make a plot is relatively simple:
+
+```{r moranplot, echo = TRUE, message = TRUE}
+# use zero.policy = T because some polygons don't have neighbors
+moran.plot(neb.projected$DP0070003, lw, zero.policy=TRUE, plot=TRUE)
+```
+
+
+
+## Your tasks
+
+1. Create a spatial subset of the US, with at AT MINIMUM 4 states, MAXIMUM 7 states. States must be contiguous. Save this subset as a shapefile such that it's sufficiently small in size that GitHub will accept the git-push
+
+2. Choose a variable. If it's a raw count, you should normalize the variable in an appropriate manner (e.g., by total population, percent, by area)
+
+3. Make a histogram of your chosen variable
+
+4. Make a choropleth map of your chosen variable. Choose an appropriate data classiﬁcation scheme
+
+5. Develop a contiguity-based spatial weights matrix of your choosing (i.e., rook or queen)
+
+  1. Row-standardize the W
+  
+  2. Plot a histogram of the number of neighbors
+
+  3. Calculate the average number of neighbors
+
+  4. Make a Moran Plot
+
+6. Repeat #5 (and 5.1 - 5.4) above with a W developed using the IDW method. You will need to investigate the `spdep` documentation to find the correct method/function.
+
+
+## Questions:
+
+1. Describe in your own words how Moran’s I is calculated
+
+2. Describe in your own words: what is a spatially-lagged variable?
+
+3. How does your analysis in this lab (as simple as it is) diffr by how you have formalized W (e.g., space, neighbors) in two diﬀerent methods? How might it affect analysis?
+
+4. What does it mean if an observation falls in the “H-L” quadrant? Why might it be useful to detect such occurances?
+
+
+## Bonus (+50 points)
+
+B1. make another Moran plot, this time do so manually (use `geom_point` from `ggplot`). You must label each quadrant with HH, HL, LL, and LH, respectively. You should also use color and/or shape to denote whether an observation is statistically significant. Tip, you can find the data you want using the ```moran.plot``` function, but you'll have to alter the function call and read some documentation.
+
+B1. plot a choropleth map of your dataset with a categorical color scheme, where the shading corresponds to the Moran plot (really, “LISA”) quadrants. Thus, your map will have four shades of color.
