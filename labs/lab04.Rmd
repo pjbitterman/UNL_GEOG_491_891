@@ -1,0 +1,67 @@
+---
+title: "Lab 04"
+#author: "Dr. Patrick Bitterman"
+#date: "`r format(Sys.time(), '%Y %B %d')`"
+output: 
+   pdf_document: 
+      template: my_template.tex
+      keep_tex: true
+my_subtitle: "GEOG 491/891"
+fancy: true
+geometry: margin=1in
+latex_engine: pdflatex
+colorlinks: true
+---
+
+# Lab 04: Making static maps
+
+### Read the instructions COMPLETELY before starting the lab
+
+This lab builds on many of the discussions and exercises from class, including the "frankenmap" exercise from class.
+
+### Formatting your submission
+
+This lab must be placed into a public repository on GitHub (www.github.com). Before the due date, submit **on Canvas** a link to the repository. I will then download your repositories and run your code. The code must be contained in either a .R script or a .Rmd markdown document. As I need to run your code, any data you use in the lab must be referenced using **relative path names**. Finally, answers to questions I pose in this document must also be in the repository at the time you submit your link to Canvas. They can be in a separate text file, or if you decide to use an RMarkdown document, you can answer them directly in the doc.
+
+## Introduction
+
+This lab is much more free-form than previous assignments. You will be completing your own version of the in-class "frankenmap" using proper cartographic principles. I encourage you to use whatever resources you find useful, including the relevant sections of the Lovelace chapter and online resources such as: https://mgimond.github.io/Spatial/good-map-making-tips.html
+
+
+
+## Your tasks
+
+1. Using the same descriptions as the in-class frankenmap, create a map that follows "good" cartographic principles. I have included the instructions below for reference.
+
+  Original description:
+
+- State data frame:
+  - Nebraska counties, symbolized (filled) by some variable of interest
+  - Borders between counties symbolized using something other than the defaults
+  - A scale bar
+
+- County data frame:
+  - Municipal boundaries within Lancaster County, with labels for names
+  - State parks in Lancaster County, symbolized using a non-default symbol
+  - 303d streams in Lancaster County, symbolized differently by "impairment"
+  - Use the DEM to plot elevation behind a semi-transparent Lancaster County (I have placed a new DEM in the repo's data folder)
+
+- Putting it together
+  - Put the state map as an inset to the county map
+  - A north arrow
+  - A title
+
+
+2. Make a second static map of your choosing. You may choose any spatial extent, domain, or technique. I'm looking for creativity, good coding practices (including comments), and for you to demonstrate independent thinking. There are minor restrictions you must follow:
+    1. It must include vector AND raster data in some manner
+    2. It must include spatial data relating to a social process (e.g., political boundaries) AND spatial data relating to an environmental process (e.g., water resources)
+    3. The map should "stand on its own" and communicate its purpose without additional text
+    4. That's it!
+
+## Questions:
+
+1. Describe your choices in making map 1
+
+2. Describe your choices in making map 2. Include why you chose the problem and where you obtained your data. Finally, your map is a communication piece. What was the intent of your communication and do you feel as though you achieved your goal?
+
+3. What did you learn?

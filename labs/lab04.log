@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.17)  4 NOV 2021 18:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.17)  4 NOV 2021 18:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**lab03.tex
-(./lab03.tex
+**lab04.tex
+(./lab04.tex
 LaTeX2e <2020-10-01> patch level 4
 L3 programming layer <2021-02-06> (/Users/pbitterman2/Library/TinyTeX/texmf-dis
 t/tex/latex/base/article.cls
@@ -345,8 +345,8 @@ ftex.def
 File: l3backend-pdftex.def 2021-02-06 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count276
 \l__pdf_internal_box=\box49
-) (./lab03.aux)
-\openout1 = `lab03.aux'.
+) (./lab04.aux)
+\openout1 = `lab04.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 86.
 LaTeX Font Info:    ... okay on input line 86.
@@ -430,9 +430,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 86.
 LaTeX Info: Redefining \pageref on input line 86.
 LaTeX Info: Redefining \nameref on input line 86.
-(./lab03.out) (./lab03.out)
+(./lab04.out) (./lab04.out)
 \@outlinefile=\write3
-\openout3 = `lab03.out'.
+\openout3 = `lab04.out'.
 
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
@@ -481,8 +481,8 @@ File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [1{/Users/pbitterman2/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
 x.map}
 
-] [2] (./lab03.aux)
-Package rerunfilecheck Info: File `lab03.out' has not changed.
+] [2] (./lab04.aux)
+Package rerunfilecheck Info: File `lab04.out' has not changed.
 (rerunfilecheck)             Checksum: ABE72B37476AC4BF0F5EDA4C2099D3A6;1056.
  ) 
 Here is how much of TeX's memory you used:
@@ -498,7 +498,7 @@ Here is how much of TeX's memory you used:
 sers/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></
 Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></
 Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb>
-Output written on lab03.pdf (2 pages, 80907 bytes).
+Output written on lab04.pdf (2 pages, 80907 bytes).
 PDF statistics:
  79 PDF objects out of 1000 (max. 8388607)
  71 compressed objects within 1 object stream
