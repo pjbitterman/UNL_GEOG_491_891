@@ -1,0 +1,27 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+TEST
+
+```{r TEST}
+# do multiple layers by not passing the first "leaflet()" call a data argument
+
+library(tidyverse)
+library(leaflet)
+parks <- sf::read_sf("../data/State_Park_Locations.shp")
+streams <- sf::read_sf("../data/Streams_303_d_.shp")
+
+leaflet() %>%
+  setView(lng = -96.703090, lat = 40.81928, zoom = 10) %>% 
+  addProviderTiles(providers$Esri.NatGeoWorldMap) %>%
+  addMarkers(data = parks, popup = ~AreaName, label = ~AreaName) %>% 
+  addPolylines(data = streams, color = "blue", 
+               popup = ~paste0(Waterbody_, " - ", Impairment))
+```
+
+TEST
+
