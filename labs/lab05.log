@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.17)  11 NOV 2021 13:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.17)  11 NOV 2021 13:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**lab03.tex
-(./lab03.tex
+**lab05.tex
+(./lab05.tex
 LaTeX2e <2020-10-01> patch level 4
 L3 programming layer <2021-02-06> (/Users/pbitterman2/Library/TinyTeX/texmf-dis
 t/tex/latex/base/article.cls
@@ -306,58 +306,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 Package hyperref Info: Option `unicode' set `true' on input line 33.
 Package hyperref Info: Option `colorlinks' set `true' on input line 33.
 Package hyperref Info: Option `breaklinks' set `true' on input line 33.
-(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2020/02/24 v1.2b Standard LaTeX Color (DPC)
-
-(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package color Info: Driver file: pdftex.def on input line 147.
-
-(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.de
-f
-File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
-) (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/graphics/dvipsnam.de
-f
-File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
-)) (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.s
-ty
-Package: fancyvrb 2021/01/20 v3.7 verbatim text (tvz,hv)
-\FV@CodeLineNo=\count276
-\FV@InFile=\read2
-\FV@TabBox=\box49
-\c@FancyVerbLine=\count277
-\FV@StepNumber=\count278
-\FV@OutFile=\write3
-) (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/framed/framed.sty
-Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
-\OuterFrameSep=\skip53
-\fb@frw=\dimen160
-\fb@frh=\dimen161
-\FrameRule=\dimen162
-\FrameSep=\dimen163
-) (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.st
-y
-Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
-(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
-(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
-)
-(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.
-cfg
-File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
-)
-Package graphics Info: Driver file: pdftex.def on input line 105.
-)
-\Gin@req@height=\dimen164
-\Gin@req@width=\dimen165
-) (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/grffile/grffile.sty
-Package: grffile 2019/11/11 v2.1 Extended file name support for graphics (legac
-y)
-Package grffile Info: This package is an empty stub for compatibility on input 
-line 40.
-) (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/sectsty/sectsty.sty
+(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/sectsty/sectsty.sty
 Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading sty
 les
 
@@ -372,51 +321,51 @@ LaTeX Warning: Command \underline  has changed.
 y
 Package: fancyhdr 2021/01/28 v4.0.1 Extensive control of page headers and foote
 rs
-\f@nch@headwidth=\skip54
-\f@nch@O@elh=\skip55
-\f@nch@O@erh=\skip56
-\f@nch@O@olh=\skip57
-\f@nch@O@orh=\skip58
-\f@nch@O@elf=\skip59
-\f@nch@O@erf=\skip60
-\f@nch@O@olf=\skip61
-\f@nch@O@orf=\skip62
+\f@nch@headwidth=\skip53
+\f@nch@O@elh=\skip54
+\f@nch@O@erh=\skip55
+\f@nch@O@olh=\skip56
+\f@nch@O@orh=\skip57
+\f@nch@O@elf=\skip58
+\f@nch@O@erf=\skip59
+\f@nch@O@olf=\skip60
+\f@nch@O@orf=\skip61
 )
 
 Package fancyhdr Warning: \fancyhead's `E' option without twoside option is use
-less on input line 122.
+less on input line 73.
 
 
 Package fancyhdr Warning: \fancyhead's `E' option without twoside option is use
-less on input line 123.
+less on input line 74.
 
 
 (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pd
 ftex.def
 File: l3backend-pdftex.def 2021-02-06 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count279
-\l__pdf_internal_box=\box50
-) (./lab03.aux)
-\openout1 = `lab03.aux'.
+\l__color_backend_stack_int=\count276
+\l__pdf_internal_box=\box49
+) (./lab05.aux)
+\openout1 = `lab05.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -451,7 +400,22 @@ LaTeX Font Info:    ... okay on input line 135.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 135.
+(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2020/02/24 v1.2b Standard LaTeX Color (DPC)
+
+(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+
+(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.de
+f
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+) (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/graphics/dvipsnam.de
+f
+File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
+))
+Package hyperref Info: Link coloring ON on input line 86.
 (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
@@ -461,162 +425,89 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 tlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count280
+\c@section@level=\count277
 )
-LaTeX Info: Redefining \ref on input line 135.
-LaTeX Info: Redefining \pageref on input line 135.
-LaTeX Info: Redefining \nameref on input line 135.
-(./lab03.out) (./lab03.out)
-\@outlinefile=\write4
-\openout4 = `lab03.out'.
+LaTeX Info: Redefining \ref on input line 86.
+LaTeX Info: Redefining \pageref on input line 86.
+LaTeX Info: Redefining \nameref on input line 86.
+(./lab05.out) (./lab05.out)
+\@outlinefile=\write3
+\openout3 = `lab05.out'.
 
-
-(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-
-base.sty
-Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-85.
-
-(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-s
-ys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 144.
+(hyperref)                than one, level fixed on input line 95.
 
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-53.
+21.
 (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-53.
+21.
 (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-153.
+121.
 (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-153.
+121.
 (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 153.
+(Font)              <10> on input line 121.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 153.
+(Font)              <7> on input line 121.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 153.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 153
+(Font)              <5> on input line 121.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 121
 .
 (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 153
+LaTeX Font Info:    Trying to load font information for U+msb on input line 121
 .
 (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (40.65997pt too wide) in paragraph at lines 152--154
-\T1/lmr/m/n/10 This lab uses some code ex-am-ples and di-rec-tions from [][]$ht
-tps : / / mgimond . github . io / Spatial / spatial-[]autocorrelation-[]in-[]r 
-.
- []
-
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
+47.
+(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-99.
+70.
 (/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [1{/Users/pbitterman2/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
 x.map}
 
-] [2] [3] [4] [5]
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-471.
-(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
-File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-<lab03_files/figure-latex/make_subset-1.pdf, id=91, 469.755pt x 325.215pt>
-File: lab03_files/figure-latex/make_subset-1.pdf Graphic file (type pdf)
-<use lab03_files/figure-latex/make_subset-1.pdf>
-Package pdftex.def Info: lab03_files/figure-latex/make_subset-1.pdf  used on in
-put line 494.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[6 <./lab03_files/figure-latex/make_subset-1.pdf>]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 5
-02.
-(/Users/pbitterman2/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-<lab03_files/figure-latex/make some neighbors-1.pdf, id=102, 469.755pt x 325.21
-5pt>
-File: lab03_files/figure-latex/make some neighbors-1.pdf Graphic file (type pdf
-)
-<use lab03_files/figure-latex/make some neighbors-1.pdf>
-Package pdftex.def Info: lab03_files/figure-latex/make some neighbors-1.pdf  us
-ed on input line 544.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[7] [8 <./lab03_files/figure-latex/make some neighbors-1.pdf>]
-<lab03_files/figure-latex/plotneighbors-1.pdf, id=116, 469.755pt x 325.215pt>
-File: lab03_files/figure-latex/plotneighbors-1.pdf Graphic file (type pdf)
-<use lab03_files/figure-latex/plotneighbors-1.pdf>
-Package pdftex.def Info: lab03_files/figure-latex/plotneighbors-1.pdf  used on 
-input line 650.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[9] [10 <./lab03_files/figure-latex/plotneighbors-1.pdf>]
-<lab03_files/figure-latex/moranmc-1.pdf, id=132, 469.755pt x 325.215pt>
-File: lab03_files/figure-latex/moranmc-1.pdf Graphic file (type pdf)
-<use lab03_files/figure-latex/moranmc-1.pdf>
-Package pdftex.def Info: lab03_files/figure-latex/moranmc-1.pdf  used on input 
-line 745.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[11]
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 796.
-[12 <./lab03_files/figure-latex/moranmc-1.pdf>]
-<lab03_files/figure-latex/calcnb-1.pdf, id=151, 469.755pt x 325.215pt>
-File: lab03_files/figure-latex/calcnb-1.pdf Graphic file (type pdf)
-<use lab03_files/figure-latex/calcnb-1.pdf>
-Package pdftex.def Info: lab03_files/figure-latex/calcnb-1.pdf  used on input l
-ine 813.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[13 <./lab03_files/figure-latex/calcnb-1.pdf>]
-<lab03_files/figure-latex/moranplot-1.pdf, id=163, 469.755pt x 325.215pt>
-File: lab03_files/figure-latex/moranplot-1.pdf Graphic file (type pdf)
-<use lab03_files/figure-latex/moranplot-1.pdf>
-Package pdftex.def Info: lab03_files/figure-latex/moranplot-1.pdf  used on inpu
-t line 851.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[14 <./lab03_files/figure-latex/moranplot-1.pdf>] [15] (./lab03.aux)
-Package rerunfilecheck Info: File `lab03.out' has not changed.
-(rerunfilecheck)             Checksum: 869FE2F4628AF7EFF6136050F22C26F4;2048.
+] [2] (./lab05.aux)
+Package rerunfilecheck Info: File `lab05.out' has not changed.
+(rerunfilecheck)             Checksum: 2FBE1803B9BCA7EDF5B958F1DBDF0B98;1771.
  ) 
 Here is how much of TeX's memory you used:
- 10569 strings out of 481250
- 157261 string characters out of 5914459
- 479323 words of memory out of 5000000
- 27253 multiletter control sequences out of 15000+600000
- 439860 words of font info for 56 fonts, out of 8000000 for 9000
+ 9671 strings out of 481250
+ 142355 string characters out of 5914459
+ 434023 words of memory out of 5000000
+ 26433 multiletter control sequences out of 15000+600000
+ 438611 words of font info for 52 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 71i,12n,74p,396b,471s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,11n,74p,396b,391s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{
 /Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}</U
 sers/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></
 Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></
 Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><
-/Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb>
-</Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb
-></Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.p
-fb>
-Output written on lab03.pdf (15 pages, 846485 bytes).
+/Users/pbitterman2/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
+Output written on lab05.pdf (2 pages, 107670 bytes).
 PDF statistics:
- 236 PDF objects out of 1000 (max. 8388607)
- 199 compressed objects within 2 object streams
- 60 named destinations out of 1000 (max. 500000)
- 127 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 97 PDF objects out of 1000 (max. 8388607)
+ 88 compressed objects within 1 object stream
+ 27 named destinations out of 1000 (max. 500000)
+ 73 words of extra memory for PDF output out of 10000 (max. 10000000)
 
