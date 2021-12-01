@@ -51,7 +51,7 @@ For this lab, you will re-create maps from labs 2-4 using Leaflet. Below, I have
 
 *Leaflet/other extras to add:*
 
-- Add a pop-up window that displays the p-value (you'll have to look at the `moran.test()` documentation) when you click on that county with a mouse
+- Add a pop-up window that displays the p-value (you'll have to look at the `moran.plot()` documentation) when you click on that county with a mouse
 
 - Add a control to change between 3 different basemaps
 
